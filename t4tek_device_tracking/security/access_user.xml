@@ -9,5 +9,42 @@
         <field name="category_id"
             ref="t4tek_device_tracking.t4tek_device_tracking_group" />
     </record>
+
+    <record id="manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id"
+            ref="t4tek_device_tracking.t4tek_device_tracking_group" />
+        <field name="implied_ids" eval="[
+                (4, ref('base.group_user')),
+                (4, ref('stock.group_stock_manager')), 
+                (4, ref('t4tek_device_tracking.operator'))]" />
+    </record>
+
+    <record id="card_issue" model="res.groups">
+        <field name="name">Card Issue</field>
+        <field name="category_id"
+            ref="t4tek_device_tracking.t4tek_device_tracking_group" />
+        <field name="implied_ids" eval="[
+                (4, ref('base.group_user')), 
+                (4, ref('t4tek_device_tracking.operator'))]" />
+    </record>
+    <record id="in_stock_user" model="res.groups">
+        <field name="name">In Stock User</field>
+        <field name="category_id"
+            ref="t4tek_device_tracking.t4tek_device_tracking_group" />
+        <field name="implied_ids" eval="[
+                (4, ref('base.group_user')), 
+                (4, ref('stock.group_stock_user')), 
+                (4, ref('t4tek_device_tracking.operator'))]" />
+    </record>
+    <record id="out_stock_user" model="res.groups">
+        <field name="name">Out Stock User</field>
+        <field name="category_id"
+            ref="t4tek_device_tracking.t4tek_device_tracking_group" />
+        <field name="implied_ids" eval="[
+                (4, ref('base.group_user')), 
+                (4, ref('stock.group_stock_user')), 
+                (4, ref('t4tek_device_tracking.operator'))]" />
+    </record>
   
 </odoo>
