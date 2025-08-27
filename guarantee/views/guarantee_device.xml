@@ -1,0 +1,111 @@
+<odoo>
+    <!-- list view General -->
+    <record id="view_guarantee_general_list" model="ir.ui.view">
+        <field name="name">guarantee.device.genaral.list</field>
+        <field name="model">guarantee.device.genaral</field>
+        <field name="arch" type="xml">
+            <list string="Guarantee General" default_order="guarantee_end_date desc">
+                <field name="product_id"/>
+                <field name="serial_tracking"/>
+                <field name="user"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="guarantee_period"/>
+                <field name="guarantee_start_date"/>
+                <field name="guarantee_end_date"/>
+                <field name="guarantee_count"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view General -->
+    <record id="view_guarantee_general_form" model="ir.ui.view">
+        <field name="name">guarantee.device.genaral.form</field>
+        <field name="model">guarantee.device.genaral</field>
+        <field name="arch" type="xml">
+            <form string="Guarantee General">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="serial_tracking"/>
+                            <field name="user"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                        </group>
+                        <group>
+                            <field name="guarantee_period"/>
+                            <field name="guarantee_start_date"/>
+                            <field name="guarantee_end_date"/>
+                            <field name="guarantee_count"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Guarantee Details">
+                            <field name="details_ids">
+                                <list editable="bottom">
+                                    <field name="guarantee_reason"/>
+                                    <field name="guarantee_loacation"/>
+                                    <field name="receive_date"/>
+                                    <field name="repair"/>
+                                    <field name="repair_time"/>
+                                    <field name="repair_done"/>
+                                    <field name="handover_date"/>
+                                    <field name="note"/>
+                                </list>
+                                <form string="Guarantee Detail">
+                                    <group>
+                                        <field name="guarantee_reason"/>
+                                        <field name="guarantee_loacation"/>
+                                    </group>
+                                    <group>
+                                        <field name="receive_date"/>
+                                        <field name="repair"/>
+                                        <field name="repair_time"/>
+                                        <field name="repair_done"/>
+                                        <field name="handover_date"/>
+                                    </group>
+                                    <field name="note"/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search view General -->
+    <record id="view_guarantee_general_search" model="ir.ui.view">
+        <field name="name">guarantee.device.genaral.search</field>
+        <field name="model">guarantee.device.genaral</field>
+        <field name="arch" type="xml">
+            <search string="Guarantee General">
+                <field name="product_id"/>
+                <field name="serial_tracking"/>
+                <field name="user"/>
+                <field name="guarantee_end_date"/>
+                <group expand="0" string="Group By">
+                    <filter string="Product" name="group_product" context="{'group_by': 'product_id'}"/>
+                    <filter string="User" name="group_user" context="{'group_by': 'user'}"/>
+                    <filter string="End Date" name="group_end" context="{'group_by': 'guarantee_end_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_guarantee_general" model="ir.actions.act_window">
+        <field name="name">Guarantee General</field>
+        <field name="res_model">guarantee.device.genaral</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_guarantee_root" name="Guarantee"/>
+    <menuitem id="menu_guarantee_general"
+              name="Devices"
+              parent="menu_guarantee_root"
+              action="action_guarantee_general"/>
+</odoo>

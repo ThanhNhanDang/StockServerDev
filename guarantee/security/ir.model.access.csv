@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_guarantee_device_genaral_user,guarantee device genaral user,model_guarantee_device_genaral,base.group_user,1,0,0,0
+access_guarantee_device_genaral_manager,guarantee device genaral manager,model_guarantee_device_genaral,base.group_system,1,1,1,1
+
+access_guarantee_device_detail_user,guarantee device detail user,model_guarantee_device_detail,base.group_user,1,0,0,0
+access_guarantee_device_detail_manager,guarantee device detail manager,model_guarantee_device_detail,base.group_system,1,1,1,1
