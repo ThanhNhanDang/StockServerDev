@@ -12,7 +12,7 @@
     <!--<menuitem id="menu_stock_receipt" name="Tạo Phiếu Tái Nhập Kho" parent="menu_stock_input" action="action_t4tek_picking_tree_incoming_scan_cards" sequence="2" /> -->
     <!-- <menuitem id="menu_stock_out" name="Xuất Kho" parent="operator_view_root" action="action_t4tek_picking_tree_outgoing_scan_cards" sequence="13" /> -->
     <menuitem id="menu_stock_out_create" name="Xuất Kho" parent="operator_view_root" groups="out_stock_user" action="action_t4tek_picking_tree_outgoing_create" sequence="14" />
-    <menuitem id="menu_product" name="Sản Phẩm" parent="operator_view_root" sequence="15" action="stock.product_template_action_product" />
+    <menuitem id="menu_product" name="Sản Phẩm" parent="operator_view_root" groups="manager" sequence="15" action="stock.product_template_action_product" />
     <menuitem id="menu_inventory" name="Lịch sử" parent="operator_view_root" groups="manager" sequence="16" action="stock.product_template_action_product" />
     <menuitem id="menu_stock_card_form_history" name="Cấp Thẻ Mới" parent="menu_inventory" sequence="11" action="stock_card_form_action" />
     <menuitem id="menu_fg_card_history" name="Cấp Thẻ Mới Cho Thành Phẩm" parent="menu_inventory" sequence="12" action="product_creation_wizard_action" />
