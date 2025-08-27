@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.StatusBarButtons" t-inherit-mode="extension">
+        <t t-foreach="visibleSlotNames" position="before">
+            <t t-if="isShowScanButton">
+                <!-- Button Quét - hiện khi không loading -->
+                <button t-if="showScanButton" t-on-click="onClickScan" class="btn btn-primary">
+                Quét thẻ
+                </button>
+
+                <!-- Button Dừng quét - hiện khi đang loading -->
+                <button t-if="showStopButton" t-on-click="onClickStop" class="btn btn-danger">
+                    <span class="spinner-border spinner-border-sm me-1" style="width: 16px; height: 16px;"></span>
+                Dừng quét thẻ
+                </button>
+            </t>
+        </t>
+    </t>
+</templates>
