@@ -467,7 +467,15 @@ export class CardPaymentPopupV2 extends Component {
         this.state.errorMessage = "Lỗi: " + res;
         return;
       }
-      this.env.bus.trigger("N:Reload");
+      // Trả kết quả về StatusBarButtons thông qua callback
+      const scanResult = {
+        success: true,
+        data: "Thành công",
+        timestamp: new Date(),
+      };
+
+      this.onScanResult(scanResult);
+      // this.env.bus.trigger("N:Reload");
       this.state.scanningState = "success";
       this.cardData = {
         success: true,

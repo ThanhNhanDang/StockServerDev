@@ -20,17 +20,19 @@ patch(StatusBarButtons.prototype, {
         this.cardPaymentRef = null;
 
         onWillStart(() => {
-            this.dialog.add(CardPaymentPopupV2, {
-                // Callback functions
-                onScanResult: this.handleScanResult.bind(this),
-                onStopResult: this.handleStopResult.bind(this),
-                // Expose reference để có thể gọi methods
-                exposeRef: (ref) => {
-                    this.cardPaymentRef = ref;
-                }
-            }, {
-                // Dialog options
-            });
+            if (this.isShowScanButton) {
+                this.dialog.add(CardPaymentPopupV2, {
+                    // Callback functions
+                    onScanResult: this.handleScanResult.bind(this),
+                    onStopResult: this.handleStopResult.bind(this),
+                    // Expose reference để có thể gọi methods
+                    exposeRef: (ref) => {
+                        this.cardPaymentRef = ref;
+                    }
+                }, {
+                    // Dialog options
+                });
+            }
         })
     },
 
@@ -47,7 +49,6 @@ patch(StatusBarButtons.prototype, {
     // Khi nhấn "Quét" - gọi hàm trong CardPaymentPopupV2
     async onClickScan() {
         if (await this.env.model.root.save()) {
-
             if (!this.cardPaymentRef) {
                 console.error("CardPaymentPopupV2 reference not available");
                 return;
@@ -56,8 +57,21 @@ patch(StatusBarButtons.prototype, {
             this.scanState.is_loading = true;
 
             try {
-                // Gọi hàm startScan trong CardPaymentPopupV2
-                await this.cardPaymentRef.startScan("generate_cards");
+                if (this.env.model.config.context.generate_cards)
+                    // Gọi hàm startScan trong CardPaymentPopupV2
+                    await this.cardPaymentRef.startScan({
+                        "type": "generate_cards",
+                        "id": this.env.model.root.resId,
+                        "model": this.env.model.resModel,
+                    });
+
+                else if (this.env.model.config.context.scan_cards) {
+                    await this.cardPaymentRef.startScan({
+                        "type": "scan_cards",
+                        "id": this.env.model.root.resId,
+                        "model": this.env.model.resModel,
+                    });
+                }
             } catch (error) {
                 console.error("Error starting scan:", error);
                 this.scanState.is_loading = false;
@@ -85,11 +99,10 @@ patch(StatusBarButtons.prototype, {
 
     // Callback khi có kết quả từ quá trình quét
     handleScanResult(result) {
-        console.log("Scan result received:", result);
 
         if (result.success) {
             // Xử lý khi quét thành công
-            console.log("Scan successful:", result.data);
+            this.env.model.load();
             // Có thể hiển thị notification, update UI, etc.
         } else {
             // Xử lý khi quét thất bại
